@@ -14,7 +14,7 @@ namespace CodeBlogFitness.BL.Model
         public string Name { get; }
 
         /// <summary>
-        /// Создать новый пол.
+        /// Задать пол пользователя.
         /// </summary>
         /// <param name="name"> Название пола. </param>
         public Gender(string name)

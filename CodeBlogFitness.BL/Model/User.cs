@@ -17,12 +17,12 @@ namespace CodeBlogFitness.BL.Model
         /// <summary>
         /// Пол пользователя.
         /// </summary>
-        public Gender Gender { get; }
+        public Gender Gender { get; set; }
 
         /// <summary>
         /// Дата рождения.
         /// </summary>
-        public DateTime BirthDate { get; }
+        public DateTime BirthDate { get; set; }
 
         /// <summary>
         /// Вес пользователя.
@@ -33,6 +33,25 @@ namespace CodeBlogFitness.BL.Model
         /// Рост пользователя.
         /// </summary>
         public double Height { get; set; }
+
+        /// <summary>
+        /// Возраст пользователя.
+        /// </summary>
+        public int Age
+        {
+            get
+            {
+                DateTime nowDate = DateTime.Today;
+                int age = nowDate.Year - BirthDate.Year;
+
+                if (BirthDate > nowDate.AddYears(-age))
+                {
+                    age--;
+                }
+
+                return age;
+            }
+        }
         #endregion
 
         /// <summary>
@@ -43,14 +62,9 @@ namespace CodeBlogFitness.BL.Model
         /// <param name="birthDate"> Дата рождения. </param>
         /// <param name="weight"> Вес пользователя. </param>
         /// <param name="height"> Рост пользователя. </param>
-        public User(string name, Gender gender, DateTime birthDate, double weight, double height)
+        public User(string name, Gender gender, DateTime birthDate, double weight, double height) : this(name)
         {
-            #region Проверка условий
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                throw new ArgumentNullException("Имя пользователя не может быть пустым или null.", nameof(name));
-            }
-
+            #region Проверка условий        
             if (gender == null)
             {
                 throw new ArgumentNullException("Пол не может быть null.", nameof(gender));
@@ -72,16 +86,29 @@ namespace CodeBlogFitness.BL.Model
             }
             #endregion
 
-            Name = name;
             Gender = gender;
             BirthDate = birthDate;
             Weight = weight;
             Height = height;
         }
 
+        /// <summary>
+        /// Задать имя пользователя.
+        /// </summary>
+        /// <param name="name"></param>
+        public User(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentNullException("Имя пользователя не может быть пустым или null.", nameof(name));
+            }
+
+            Name = name;
+        }
+
         public override string ToString()
         {
-            return Name;
+            return Name + " " + Age;
         }
     }
 }

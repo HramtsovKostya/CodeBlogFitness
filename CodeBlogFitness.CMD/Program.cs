@@ -9,27 +9,73 @@ namespace CodeBlogFitness.CMD
         {
             Console.WriteLine("Вас приветствует приложение CodeBlogFitness!");
 
-            #region Ввод данных
             Console.WriteLine("Введите имя пользователя:");
-            var name = Console.ReadLine();
+            var userName = Console.ReadLine();
 
-            Console.WriteLine("Введите Ваш пол:");
-            var gender = Console.ReadLine();
+            var userController = new UserController(userName);
 
-            Console.WriteLine("Введите дату рождения:");
-            var birthDate = DateTime.Parse(Console.ReadLine());
+            if (userController.IsNewUser)
+            {
+                Console.Write("Введите Ваш пол: ");
+                var gender = Console.ReadLine();                
+                var birthDate = ParseToDateTime();
+                var weight = ParseToDouble("вес");
+                var height = ParseToDouble("рост");
 
-            Console.WriteLine("Введите Ваш вес:");
-            var weight = double.Parse(Console.ReadLine());
+                userController.SetNewUserData(gender, birthDate, weight, height);
+            }
 
-            Console.WriteLine("Введите Ваш рост:");
-            var height = double.Parse(Console.ReadLine());
-            #endregion
-
-            var userController = new UserController(name, gender, birthDate, weight, height);
-            userController.Save();
-
+            Console.WriteLine(userController.CurrentUser);
             Console.ReadLine();
+        }       
+
+        /// <summary>
+        /// Преобразовать строку в тип Double.
+        /// </summary>
+        /// <param name="name"> Имя переменной. </param>
+        /// <returns> Дробное число типа Double. </returns>
+        private static double ParseToDouble(string name)
+        {
+            double value;
+            bool isParsed;           
+
+            do
+            {
+                Console.Write($"Введите {name}: ");
+                isParsed = double.TryParse(Console.ReadLine(), out value);
+
+                if (!isParsed)
+                {
+                    Console.WriteLine("Неверный формат данных!");
+                }
+            }
+            while (!isParsed);
+
+            return value;
+        }
+
+        /// <summary>
+        /// Преобразовать строку в дату рождения.
+        /// </summary>
+        /// <returns> Дата рождения. </returns>
+        private static DateTime ParseToDateTime()
+        {
+            DateTime value;
+            bool isParsed;
+
+            do
+            {
+                Console.Write("Введите дату рождения (ДД.ММ.ГГГГ): ");
+                isParsed = DateTime.TryParse(Console.ReadLine(), out value);
+
+                if (!isParsed)
+                {
+                    Console.WriteLine("Неверный формат даты рождения!");
+                }
+            }
+            while (!isParsed);
+
+            return value;
         }
     }
 }

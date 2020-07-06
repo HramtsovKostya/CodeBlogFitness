@@ -1,60 +1,104 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using CodeBlogFitness.BL.Model;
 
 namespace CodeBlogFitness.BL.Controller
 {
     /// <summary>
-    /// Контроллер пользователя.
+    /// Контроллер пользователей.
     /// </summary>
     public class UserController
     {
         /// <summary>
-        /// Пользователь приложения.
+        /// Список пользователей.
         /// </summary>
-        public User User { get; }
+        private List<User> Users { get; }
 
         /// <summary>
-        /// Создание нового контроллера пользователя.
+        /// Активный пользователь.
+        /// </summary>
+        public User CurrentUser { get; }
+
+        /// <summary>
+        /// Проверка на нового пользователя.
+        /// </summary>
+        public bool IsNewUser { get; } = false;
+
+        /// <summary>
+        /// Создание нового контроллера пользователей.
         /// </summary>
         /// <param name="userName"> Имя пользователя. </param>
+        public UserController(string userName)
+        {
+            if (string.IsNullOrWhiteSpace(userName))
+            {
+                throw new ArgumentNullException("Имя пользователя не может быть пустым.", nameof(userName));
+            }
+
+            Users = GetUsersData();
+            CurrentUser = Users.SingleOrDefault(user => user.Name == userName);
+
+            if (CurrentUser == null)
+            {
+                CurrentUser = new User(userName);
+                Users.Add(CurrentUser);
+                IsNewUser = true;
+
+                SaveUsersData();
+            }
+        }
+
+        /// <summary>
+        /// Получение данных о новом пользователе.
+        /// </summary>
         /// <param name="genderName"> Пол пользователя. </param>
         /// <param name="birthDate"> Дата рождения. </param>
         /// <param name="weight"> Вес пользователя. </param>
         /// <param name="height"> Рост пользователя. </param>
-        public UserController(string userName, string genderName, DateTime birthDate, double weight, double height)
+        public void SetNewUserData(string genderName, DateTime birthDate, double weight = 1, double height = 1)
         {
-            User = new User(userName, new Gender(genderName), birthDate, weight, height);
+            CurrentUser.Gender = new Gender(genderName);
+            CurrentUser.BirthDate = birthDate;
+            CurrentUser.Weight = weight;
+            CurrentUser.Height = height;
+
+            SaveUsersData();
         }
 
         /// <summary>
-        /// Получить данные пользователя.
+        /// Получить сохраненный список пользователей.
         /// </summary>
-        /// <returns> Пользователь приложения. </returns>
-        public UserController()
+        /// <returns> Список пользователей. </returns>
+        private List<User> GetUsersData()
         {
             var formatter = new BinaryFormatter();
 
-            using (var fs = new FileStream("users.dat", FileMode.OpenOrCreate))
+            using (var fs = new FileStream("users.dat", FileMode.Open))
             {
-                if (formatter.Deserialize(fs) is User user)
+                if (fs.Length != 0)
                 {
-                    User = user;
+                    return formatter.Deserialize(fs) as List<User>;
+                }
+                else
+                {
+                    return new List<User>();
                 }
             }
         }        
 
         /// <summary>
-        /// Сохранить данные пользователя.
+        /// Сохранить список пользователей.
         /// </summary>
-        public void Save()
+        private void SaveUsersData()
         {
             var formatter = new BinaryFormatter();
 
             using (var fs = new FileStream("users.dat", FileMode.OpenOrCreate))
             {
-                formatter.Serialize(fs, User);
+                formatter.Serialize(fs, Users);
             }
         }        
     }
