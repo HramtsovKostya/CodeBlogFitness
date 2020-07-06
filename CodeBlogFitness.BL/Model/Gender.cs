@@ -3,7 +3,7 @@
 namespace CodeBlogFitness.BL.Model
 {
     /// <summary>
-    /// Пол.
+    /// Пол пользователя.
     /// </summary>
     [Serializable]
     public class Gender
