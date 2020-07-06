@@ -18,12 +18,12 @@ namespace CodeBlogFitness.BL.Controller
         private List<User> Users { get; }
 
         /// <summary>
-        /// Активный пользователь.
+        /// Текущий пользователь.
         /// </summary>
         public User CurrentUser { get; }
 
         /// <summary>
-        /// Проверка на нового пользователя.
+        /// Проверка на наличие пользователя в списке.
         /// </summary>
         public bool IsNewUser { get; } = false;
 
@@ -72,34 +72,34 @@ namespace CodeBlogFitness.BL.Controller
         /// Получить сохраненный список пользователей.
         /// </summary>
         /// <returns> Список пользователей. </returns>
-        private List<User> GetUsersData()
+        public List<User> GetUsersData()
         {
             var formatter = new BinaryFormatter();
 
-            using (var fs = new FileStream("users.dat", FileMode.Open))
+            using (var file = new FileStream("users.dat", FileMode.OpenOrCreate))
             {
-                if (fs.Length != 0)
+                if (file.Length != 0)
                 {
-                    return formatter.Deserialize(fs) as List<User>;
+                    return formatter.Deserialize(file) as List<User>;
                 }
                 else
                 {
                     return new List<User>();
                 }
             }
-        }        
+        }
 
         /// <summary>
         /// Сохранить список пользователей.
         /// </summary>
-        private void SaveUsersData()
+        public void SaveUsersData()
         {
             var formatter = new BinaryFormatter();
 
-            using (var fs = new FileStream("users.dat", FileMode.OpenOrCreate))
+            using (var file = new FileStream("users.dat", FileMode.OpenOrCreate))
             {
-                formatter.Serialize(fs, Users);
+                formatter.Serialize(file, Users);
             }
-        }        
+        }
     }
 }

@@ -9,9 +9,8 @@ namespace CodeBlogFitness.CMD
         {
             Console.WriteLine("Вас приветствует приложение CodeBlogFitness!");
 
-            Console.WriteLine("Введите имя пользователя:");
+            Console.Write("Введите имя пользователя: ");
             var userName = Console.ReadLine();
-
             var userController = new UserController(userName);
 
             if (userController.IsNewUser)
@@ -46,7 +45,7 @@ namespace CodeBlogFitness.CMD
 
                 if (!isParsed)
                 {
-                    Console.WriteLine("Неверный формат данных!");
+                    Console.WriteLine($"Неверный формат {name}а!");
                 }
             }
             while (!isParsed);

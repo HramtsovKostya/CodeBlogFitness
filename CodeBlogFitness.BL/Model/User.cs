@@ -55,6 +55,20 @@ namespace CodeBlogFitness.BL.Model
         #endregion
 
         /// <summary>
+        /// Задать имя пользователя.
+        /// </summary>
+        /// <param name="name"></param>
+        public User(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentNullException("Имя пользователя не может быть пустым или null.", nameof(name));
+            }
+
+            Name = name;
+        }
+
+        /// <summary>
         /// Создать нового пользователя.
         /// </summary>
         /// <param name="name"> Имя пользователя. </param>
@@ -90,21 +104,7 @@ namespace CodeBlogFitness.BL.Model
             BirthDate = birthDate;
             Weight = weight;
             Height = height;
-        }
-
-        /// <summary>
-        /// Задать имя пользователя.
-        /// </summary>
-        /// <param name="name"></param>
-        public User(string name)
-        {
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                throw new ArgumentNullException("Имя пользователя не может быть пустым или null.", nameof(name));
-            }
-
-            Name = name;
-        }
+        }        
 
         public override string ToString()
         {
