@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using CodeBlogFitness.BL.Controller;
+using CodeBlogFitness.BL.Model;
 
 namespace CodeBlogFitness.CMD
 {
@@ -11,7 +13,9 @@ namespace CodeBlogFitness.CMD
 
             Console.Write("Введите имя пользователя: ");
             var userName = Console.ReadLine();
+
             var userController = new UserController(userName);
+            var eatingController = new EatingController(userController.CurrentUser);
 
             if (userController.IsNewUser)
             {
@@ -25,8 +29,42 @@ namespace CodeBlogFitness.CMD
             }
 
             Console.WriteLine(userController.CurrentUser);
+            Console.WriteLine();
+
+            Console.WriteLine("Что вы хотите сделать?");
+
+            Console.WriteLine("E - ввести прием пищи");
+            var key = Console.ReadKey();
+
+            if (key.Key == ConsoleKey.E)
+            {
+                var foods = EnterEating();
+                eatingController.Add(foods.Key, foods.Value);
+
+                foreach (var food in eatingController.Eating.Foods)
+                {
+                    Console.WriteLine($"\t{food.Key} - {food.Value}");
+                }
+            }
+
             Console.ReadLine();
-        }       
+        }
+
+        private static KeyValuePair<Food, double> EnterEating()
+        {
+            Console.Write("\nВведите название продукта: ");
+            var foodName = Console.ReadLine();
+
+            var calories = ParseToDouble("калорийность");
+            var proteins = ParseToDouble("количество белков");
+            var fats = ParseToDouble("количество жиров");
+            var carbohydrates = ParseToDouble("количество углеводов");
+            
+            var weight = ParseToDouble("вес порции");
+            var product = new Food(foodName, calories, proteins, fats, carbohydrates);
+            
+            return new KeyValuePair<Food, double>(product, weight);
+        }        
 
         /// <summary>
         /// Преобразовать строку в тип Double.
@@ -45,7 +83,7 @@ namespace CodeBlogFitness.CMD
 
                 if (!isParsed)
                 {
-                    Console.WriteLine($"Неверный формат {name}а!");
+                    Console.WriteLine($"Неверный формат поля {name}!");
                 }
             }
             while (!isParsed);

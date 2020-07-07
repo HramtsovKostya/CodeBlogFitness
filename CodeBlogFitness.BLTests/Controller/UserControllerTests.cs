@@ -1,7 +1,5 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CodeBlogFitness.BL.Controller;
-using CodeBlogFitness.BL.Model;
 
 namespace CodeBlogFitness.BL.Controller.Tests
 {

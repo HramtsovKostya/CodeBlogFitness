@@ -17,22 +17,22 @@ namespace CodeBlogFitness.BL.Model
         /// <summary>
         /// Пол пользователя.
         /// </summary>
-        public Gender Gender { get; set; }
+        public Gender Gender { get; internal set; }
 
         /// <summary>
         /// Дата рождения.
         /// </summary>
-        public DateTime BirthDate { get; set; }
+        public DateTime BirthDate { get; internal set; }
 
         /// <summary>
         /// Вес пользователя.
         /// </summary>
-        public double Weight { get; set; }
+        public double Weight { get; internal set; }
 
         /// <summary>
         /// Рост пользователя.
         /// </summary>
-        public double Height { get; set; }
+        public double Height { get; internal set; }
 
         /// <summary>
         /// Возраст пользователя.
@@ -41,32 +41,17 @@ namespace CodeBlogFitness.BL.Model
         {
             get
             {
-                DateTime nowDate = DateTime.Today;
-                int age = nowDate.Year - BirthDate.Year;
-
-                if (BirthDate > nowDate.AddYears(-age))
-                {
-                    age--;
-                }
-
-                return age;
+                int age = DateTime.Today.Year - BirthDate.Year;
+                return BirthDate > DateTime.Today.AddYears(-age) ? --age : age;
             }
-        }
+        }        
         #endregion
 
         /// <summary>
         /// Задать имя пользователя.
         /// </summary>
         /// <param name="name"></param>
-        public User(string name)
-        {
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                throw new ArgumentNullException("Имя пользователя не может быть пустым или null.", nameof(name));
-            }
-
-            Name = name;
-        }
+        public User(string name) : this(name, new Gender("муж."), DateTime.Parse("01.01.1900"), 1, 1) { }
 
         /// <summary>
         /// Создать нового пользователя.
@@ -76,9 +61,14 @@ namespace CodeBlogFitness.BL.Model
         /// <param name="birthDate"> Дата рождения. </param>
         /// <param name="weight"> Вес пользователя. </param>
         /// <param name="height"> Рост пользователя. </param>
-        public User(string name, Gender gender, DateTime birthDate, double weight, double height) : this(name)
+        public User(string name, Gender gender, DateTime birthDate, double weight, double height)
         {
-            #region Проверка условий        
+            #region Проверка условий
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentNullException("Имя пользователя не может быть пустым или null.", nameof(name));
+            }
+
             if (gender == null)
             {
                 throw new ArgumentNullException("Пол не может быть null.", nameof(gender));
@@ -100,15 +90,13 @@ namespace CodeBlogFitness.BL.Model
             }
             #endregion
 
+            Name = name;
             Gender = gender;
             BirthDate = birthDate;
             Weight = weight;
             Height = height;
-        }        
-
-        public override string ToString()
-        {
-            return Name + " " + Age;
         }
+
+        public override string ToString() => Name + " " + Age;
     }
 }
