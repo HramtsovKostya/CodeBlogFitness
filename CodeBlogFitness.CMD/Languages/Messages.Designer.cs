@@ -61,6 +61,15 @@ namespace CodeBlogFitness.CMD.Languages {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на дата рождения.
+        /// </summary>
+        public static string BirthDate {
+            get {
+                return ResourceManager.GetString("BirthDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Введите пол: .
         /// </summary>
         public static string EnterGender {
