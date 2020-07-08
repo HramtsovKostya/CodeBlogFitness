@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Resources;
 using CodeBlogFitness.BL.Controller;
 using CodeBlogFitness.BL.Model;
 
@@ -9,9 +11,13 @@ namespace CodeBlogFitness.CMD
     {
         static void Main()
         {
-            Console.WriteLine("Вас приветствует приложение CodeBlogFitness!");
+            var culture = CultureInfo.CreateSpecificCulture("ru-RU");
+            var resManager = new ResourceManager
+                ("CodeBlogFitness.CMD.Languages.Messages", typeof(Program).Assembly);
 
-            Console.Write("Введите имя пользователя: ");
+            Console.WriteLine(resManager.GetString("Greeting", culture));
+
+            Console.Write(resManager.GetString("EnterName", culture));
             var userName = Console.ReadLine();
 
             var userController = new UserController(userName);
@@ -19,11 +25,11 @@ namespace CodeBlogFitness.CMD
 
             if (userController.IsNewUser)
             {
-                Console.Write("Введите Ваш пол: ");
+                Console.Write(resManager.GetString("EnterGender", culture));
                 var gender = Console.ReadLine();                
                 var birthDate = ParseToDateTime();
-                var weight = ParseToDouble("вес");
-                var height = ParseToDouble("рост");
+                var weight = ParseToDouble(resManager.GetString("Weight", culture));
+                var height = ParseToDouble(resManager.GetString("Height", culture));
 
                 userController.SetNewUserData(gender, birthDate, weight, height);
             }
