@@ -8,13 +8,24 @@ using CodeBlogFitness.BL.Model;
 namespace CodeBlogFitness.CMD
 {
     class Program
-    {
+    {       
+        /// <summary>
+        /// Объект, отвечающий за локализацию проекта.
+        /// </summary>
+        private static readonly CultureInfo culture 
+            = CultureInfo.CreateSpecificCulture("ru-RU");
+        
+        /// <summary>
+        /// Менеджер ресурсов.
+        /// </summary>
+        private static readonly ResourceManager resManager = new ResourceManager
+            ("CodeBlogFitness.CMD.Languages.Resources", typeof(Program).Assembly);
+
+        /// <summary>
+        /// Точка входа в программу.
+        /// </summary>
         static void Main()
         {
-            var culture = CultureInfo.CreateSpecificCulture("ru-RU");
-            var resManager = new ResourceManager
-                ("CodeBlogFitness.CMD.Languages.Messages", typeof(Program).Assembly);
-
             Console.WriteLine(resManager.GetString("Greeting", culture));
 
             Console.Write(resManager.GetString("EnterName", culture));
@@ -33,17 +44,15 @@ namespace CodeBlogFitness.CMD
                 var height = ParseToDouble(resManager.GetString("Height", culture));
                 userController.SetNewUserData(gender, birthDate, weight, height);
             }
-
-            Console.WriteLine(userController.CurrentUser);
             Console.WriteLine();
 
             while (true)
             {
-                Console.WriteLine("Что вы хотите сделать?");
+                Console.WriteLine(resManager.GetString("Action", culture));
 
-                Console.WriteLine("E - ввести прием пищи");
-                Console.WriteLine("A - ввести упражнение");
-                Console.WriteLine("Q - выход");
+                Console.WriteLine("E - Ввести прием пищи.");
+                Console.WriteLine("A - Ввести упражнение.");
+                Console.WriteLine("Q - Выйти из программы.");
 
                 var key = Console.ReadKey();
                 Console.WriteLine();
@@ -80,6 +89,10 @@ namespace CodeBlogFitness.CMD
             }
         }
 
+        /// <summary>
+        /// Ввести новое упражнение.
+        /// </summary>
+        /// <returns> Физическое упражнение. </returns>
         private static (DateTime Begin, DateTime End, Activity Activity) EnterExercise()
         {
             Console.Write("Введите название упражнения: ");
@@ -94,6 +107,10 @@ namespace CodeBlogFitness.CMD
             return (begin, end, activity);
         }
 
+        /// <summary>
+        /// Ввести новый прием пищи.
+        /// </summary>
+        /// <returns> Прием пищи. </returns>
         private static KeyValuePair<Food, double> EnterEating()
         {
             Console.Write("Введите название продукта: ");
@@ -114,7 +131,7 @@ namespace CodeBlogFitness.CMD
         /// Преобразовать строку в тип Double.
         /// </summary>
         /// <param name="name"> Имя переменной. </param>
-        /// <returns> Дробное число типа Double. </returns>
+        /// <returns> Переменная типа Double. </returns>
         private static double ParseToDouble(string name)
         {
             double value;
@@ -122,12 +139,12 @@ namespace CodeBlogFitness.CMD
 
             do
             {
-                Console.Write($"Введите {name}: ");
+                Console.Write(resManager.GetString("Enter", culture) + name + ": ");
                 isParsed = double.TryParse(Console.ReadLine(), out value);
 
                 if (!isParsed)
                 {
-                    Console.WriteLine($"Неверный формат поля {name}!");
+                    Console.WriteLine(resManager.GetString("InvalidFormat", culture) + name + "!");
                 }
             }
             while (!isParsed);
@@ -136,9 +153,10 @@ namespace CodeBlogFitness.CMD
         }
 
         /// <summary>
-        /// Преобразовать строку в дату рождения.
+        /// Преобразовать строку в DateTime.
         /// </summary>
-        /// <returns> Дата рождения. </returns>
+        /// <param name="name"> Имя переменной. </param>
+        /// <returns> Переменная типа DateTime. </returns>
         private static DateTime ParseToDateTime(string name)
         {
             DateTime value;
@@ -146,12 +164,12 @@ namespace CodeBlogFitness.CMD
 
             do
             {
-                Console.Write($"Введите поле {name} (ДД.ММ.ГГГГ): ");
+                Console.Write(resManager.GetString("EnterField", culture) + name + resManager.GetString("DateFormat", culture));
                 isParsed = DateTime.TryParse(Console.ReadLine(), out value);
 
                 if (!isParsed)
                 {
-                    Console.WriteLine($"Неверный формат поля {name}!");
+                    Console.WriteLine(resManager.GetString("InvalidFormat", culture) + name + "!");
                 }
             }
             while (!isParsed);

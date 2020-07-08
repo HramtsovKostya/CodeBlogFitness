@@ -5,27 +5,42 @@ using System.Linq;
 namespace CodeBlogFitness.BL.Model
 {
     /// <summary>
-    /// Прием пищи.
+    /// Потребление пищи.
     /// </summary>
     [Serializable]
     public class Eating
     {
         #region Свойства
         /// <summary>
+        /// Идентификатор потребления приема.
+        /// </summary>
+        public int Id { get; set; }
+
+        /// <summary>
+        /// Идентификатор пользователя. 
+        /// </summary>
+        public int UserId { get; set; }
+
+        /// <summary>
         /// Активный пользователь.
         /// </summary>
-        public User User { get; }
+        public virtual User User { get; set; }
 
         /// <summary>
         /// Момент приема пищи.
         /// </summary>
-        public DateTime Moment { get; }
+        public DateTime Moment { get; set; }
 
         /// <summary>
         /// Список приема пищи.
         /// </summary>
-        public Dictionary<Food, double> Foods { get; }
+        public Dictionary<Food, double> Foods { get; set; }
         #endregion
+
+        /// <summary>
+        /// Процесс приема пищи.
+        /// </summary>
+        public Eating() { }
 
         /// <summary>
         /// Процесс приема пищи.
@@ -33,7 +48,8 @@ namespace CodeBlogFitness.BL.Model
         /// <param name="user"> Пользователь. </param>
         public Eating(User user)
         {
-            User = user ?? throw new ArgumentNullException("Пользователь не может быть равным null.", nameof(user));
+            User = user ?? throw new ArgumentNullException
+                ("Пользователь не может быть равным null.", nameof(user));
             Moment = DateTime.UtcNow;
             Foods = new Dictionary<Food, double>();
         }

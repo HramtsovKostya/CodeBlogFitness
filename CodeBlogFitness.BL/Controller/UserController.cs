@@ -8,13 +8,9 @@ namespace CodeBlogFitness.BL.Controller
     /// <summary>
     /// Контроллер пользователей.
     /// </summary>
-    public class UserController : ControllerBase
+    public class UserController : BasicController
     {
-        /// <summary>
-        /// Файл сохранения списка пользователей.
-        /// </summary>
-        private const string USERS_FILE_NAME = "users.dat";
-        
+        #region Свойства        
         /// <summary>
         /// Список пользователей.
         /// </summary>
@@ -29,6 +25,7 @@ namespace CodeBlogFitness.BL.Controller
         /// Проверка на наличие пользователя в списке.
         /// </summary>
         public bool IsNewUser { get; } = false;
+        #endregion
 
         /// <summary>
         /// Создание нового контроллера пользователей.
@@ -42,15 +39,13 @@ namespace CodeBlogFitness.BL.Controller
             }
 
             Users = GetUsersData();
-            CurrentUser = Users.SingleOrDefault(user => user.Name == userName);
+            CurrentUser = Users.FirstOrDefault(user => user.Name == userName);
 
             if (CurrentUser == null)
             {
                 CurrentUser = new User(userName);
                 Users.Add(CurrentUser);
                 IsNewUser = true;
-
-                SaveUsersData();
             }
         }
 
@@ -77,7 +72,7 @@ namespace CodeBlogFitness.BL.Controller
         /// <returns> Список пользователей. </returns>
         private List<User> GetUsersData()
         {
-            return Load<List<User>>(USERS_FILE_NAME) ?? new List<User>();
+            return Load<User>() ?? new List<User>();
         }
 
         /// <summary>
@@ -85,7 +80,7 @@ namespace CodeBlogFitness.BL.Controller
         /// </summary>
         private void SaveUsersData()
         {
-            Save(Users, USERS_FILE_NAME);
+            Save(Users);
         }
     }
 }

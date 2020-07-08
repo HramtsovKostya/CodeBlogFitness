@@ -11,8 +11,9 @@ namespace CodeBlogFitness.BL.Controller.Tests
         {
             // Arrage
             var userName = new Guid().ToString();
-            var gender = "man";
             var birthDate = DateTime.Now.AddYears(-18);
+
+            var gender = "man";            
             var weight = 90;
             var height = 190;
 

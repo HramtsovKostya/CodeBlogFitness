@@ -5,29 +5,49 @@ using System.Linq;
 
 namespace CodeBlogFitness.BL.Controller
 {
-    public class ExerciseController : ControllerBase
+    /// <summary>
+    /// Контроллер выполнения упражнений.
+    /// </summary>
+    public class ExerciseController : BasicController
     {
-        private const string EXERCISES_FILE_NAME = "exercises.dat";
-
-        private const string ACTIVITIES_FILE_NAME = "activities.dat";
-        
+        #region Свойства
+        /// <summary>
+        /// Пользователь.
+        /// </summary>
         private readonly User user;
 
+        /// <summary>
+        /// Список упражнений пользователя.
+        /// </summary>
         public List<Exercise> Exercises { get; }
 
+        /// <summary>
+        /// Список активностей пользователя.
+        /// </summary>
         public List<Activity> Activities { get; }
+        #endregion
 
+        /// <summary>
+        /// Создание контроллера выполнения упражнений.
+        /// </summary>
+        /// <param name="user"> Пользователь. </param>
         public ExerciseController(User user)
         {
             this.user = user ?? throw new ArgumentNullException(nameof(user));
 
             Exercises = GetAllExercises();
             Activities = GetAllActivities();
-        }        
+        }
 
+        /// <summary>
+        /// Добавить новое упражнение.
+        /// </summary>
+        /// <param name="activity"> Активность. </param>
+        /// <param name="begin"> Время начала активности. </param>
+        /// <param name="end"> Время конца активности. </param>
         public void Add(Activity activity, DateTime begin, DateTime end)
         {
-            var act = Activities.SingleOrDefault(a => a.Name == activity.Name);
+            var act = Activities.FirstOrDefault(a => a.Name == activity.Name);
 
             if (act == null)
             {
@@ -45,20 +65,31 @@ namespace CodeBlogFitness.BL.Controller
             SaveAllExercises();
         }
 
+        /// <summary>
+        /// Получить список упражнений.
+        /// </summary>
+        /// <returns> Список упражнений. </returns>
         private List<Exercise> GetAllExercises()
         {
-            return Load<List<Exercise>>(EXERCISES_FILE_NAME) ?? new List<Exercise>();
+            return Load<Exercise>() ?? new List<Exercise>();
         }
 
+        /// <summary>
+        /// Получить список активностей пользователя.
+        /// </summary>
+        /// <returns> Список активностей пользователя. </returns>
         private List<Activity> GetAllActivities()
         {
-            return Load<List<Activity>>(ACTIVITIES_FILE_NAME) ?? new List<Activity>();
+            return Load<Activity>() ?? new List<Activity>();
         }
 
+        /// <summary>
+        /// Сохранить все упражнения.
+        /// </summary>
         private void SaveAllExercises()
         {
-            Save(Exercises, EXERCISES_FILE_NAME);
-            Save(Activities, ACTIVITIES_FILE_NAME);
+            Save(Activities);
+            Save(Exercises);
         }        
     }
 }

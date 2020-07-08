@@ -8,19 +8,9 @@ namespace CodeBlogFitness.BL.Controller
     /// <summary>
     /// Контроллер потребления пищи.
     /// </summary>
-    public class EatingController : ControllerBase
+    public class EatingController : BasicController
     {
-        #region Константы, Поля и Свойства
-        /// <summary>
-        /// Файл сохранения списка продуктов.
-        /// </summary>
-        private const string FOODS_FILE_NAME = "foods.dat";
-
-        /// <summary>
-        /// Файл сохранения справочника потребления пищи.
-        /// </summary>
-        private const string EATING_FILE_NAME = "eating.dat";
-
+        #region Свойства       
         /// <summary>
         /// Активный пользователь.
         /// </summary>
@@ -43,7 +33,8 @@ namespace CodeBlogFitness.BL.Controller
         /// <param name="user"> Пользователь. </param>
         public EatingController(User user)
         {
-            this.user = user ?? throw new ArgumentNullException("Пользователь не может быть равен null.", nameof(user));
+            this.user = user ?? throw new ArgumentNullException
+                ("Пользователь не может быть равен null.", nameof(user));
 
             Foods = GetAllFoods();
             Eating = GetEating();
@@ -56,7 +47,7 @@ namespace CodeBlogFitness.BL.Controller
         /// <param name="weight"> Вес продукта в гр. </param>
         public void Add(Food food, double weight)
         {
-            var product = Foods.SingleOrDefault(f => f.Name == food.Name);
+            var product = Foods.FirstOrDefault(f => f.Name == food.Name);
 
             if (product == null)
             {
@@ -77,7 +68,7 @@ namespace CodeBlogFitness.BL.Controller
         /// <returns> Список всех продуктов. </returns>
         private List<Food> GetAllFoods()
         {
-            return Load<List<Food>>(FOODS_FILE_NAME) ?? new List<Food>();
+            return Load<Food>() ?? new List<Food>();
         }
 
         /// <summary>
@@ -86,7 +77,7 @@ namespace CodeBlogFitness.BL.Controller
         /// <returns> справочник потребления пищи. </returns>
         private Eating GetEating()
         {
-            return Load<Eating>(EATING_FILE_NAME) ?? new Eating(user);
+            return Load<Eating>().FirstOrDefault() ?? new Eating(user);
         }
 
         /// <summary>
@@ -94,8 +85,8 @@ namespace CodeBlogFitness.BL.Controller
         /// </summary>
         private void SaveEating()
         {
-            Save(Foods, FOODS_FILE_NAME);
-            Save(Eating, EATING_FILE_NAME);
+            Save(Foods);
+            Save(new List<Eating> { Eating });
         }
     }
 }

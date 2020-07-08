@@ -117,6 +117,21 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Action" xml:space="preserve">
+    <value>What do you want to do?</value>
+  </data>
+  <data name="BirthDate" xml:space="preserve">
+    <value>date of birth</value>
+  </data>
+  <data name="DateFormat" xml:space="preserve">
+    <value> (DD.MM.YYYY): </value>
+  </data>
+  <data name="Enter" xml:space="preserve">
+    <value>Enter </value>
+  </data>
+  <data name="EnterField" xml:space="preserve">
+    <value>Enter field </value>
+  </data>
   <data name="EnterGender" xml:space="preserve">
     <value>Enter your gender: </value>
   </data>
@@ -128,6 +143,9 @@
   </data>
   <data name="Height" xml:space="preserve">
     <value>height</value>
+  </data>
+  <data name="InvalidFormat" xml:space="preserve">
+    <value>invalid field format </value>
   </data>
   <data name="Weight" xml:space="preserve">
     <value>weight</value>
