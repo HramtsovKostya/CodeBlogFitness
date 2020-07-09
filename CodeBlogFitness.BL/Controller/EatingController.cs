@@ -47,7 +47,8 @@ namespace CodeBlogFitness.BL.Controller
         /// <param name="weight"> Вес продукта в гр. </param>
         public void Add(Food food, double weight)
         {
-            var product = Foods.FirstOrDefault(f => f.Name == food.Name);
+            var product = Foods
+                .FirstOrDefault(prod => prod.Name == food.Name);
 
             if (product == null)
             {
@@ -77,7 +78,8 @@ namespace CodeBlogFitness.BL.Controller
         /// <returns> справочник потребления пищи. </returns>
         private Eating GetEating()
         {
-            return Load<Eating>().FirstOrDefault() ?? new Eating(user);
+            return Load<Eating>()
+                .FirstOrDefault() ?? new Eating(user);
         }
 
         /// <summary>

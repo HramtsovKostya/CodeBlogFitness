@@ -35,11 +35,13 @@ namespace CodeBlogFitness.BL.Controller
         {
             if (string.IsNullOrWhiteSpace(userName))
             {
-                throw new ArgumentNullException("Имя пользователя не может быть пустым.", nameof(userName));
+                throw new ArgumentNullException
+                    ("Имя пользователя не может быть пустым.", nameof(userName));
             }
 
             Users = GetUsersData();
-            CurrentUser = Users.FirstOrDefault(user => user.Name == userName);
+            CurrentUser = Users
+                .FirstOrDefault(user => user.Name == userName);
 
             if (CurrentUser == null)
             {
@@ -56,7 +58,10 @@ namespace CodeBlogFitness.BL.Controller
         /// <param name="birthDate"> Дата рождения. </param>
         /// <param name="weight"> Вес пользователя. </param>
         /// <param name="height"> Рост пользователя. </param>
-        public void SetNewUserData(string genderName, DateTime birthDate, double weight = 1, double height = 1)
+        public void SetNewUserData(string genderName,
+                                   DateTime birthDate,
+                                   double weight,
+                                   double height)
         {
             CurrentUser.Gender = new Gender(genderName);
             CurrentUser.BirthDate = birthDate;

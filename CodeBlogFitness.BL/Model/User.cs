@@ -77,8 +77,8 @@ namespace CodeBlogFitness.BL.Model
         /// Задать имя пользователя.
         /// </summary>
         /// <param name="name"></param>
-        public User(string name) : 
-            this(name, new Gender("муж."), DateTime.Parse("01.01.1900"), 1, 1) { }
+        public User(string name) : this(name, new Gender("муж."),
+            DateTime.Parse("01.01.1900"), 1, 1) { }
 
         /// <summary>
         /// Создать нового пользователя.
@@ -89,10 +89,10 @@ namespace CodeBlogFitness.BL.Model
         /// <param name="weight"> Вес пользователя. </param>
         /// <param name="height"> Рост пользователя. </param>
         public User(string name,
-                Gender gender,
-                DateTime birthDate,
-                double weight,
-                double height)
+                    Gender gender,
+                    DateTime birthDate,
+                    double weight,
+                    double height)
         {
             #region Проверка ограничений
             if (string.IsNullOrWhiteSpace(name))

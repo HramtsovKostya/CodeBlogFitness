@@ -1,34 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Resources;
 using CodeBlogFitness.BL.Controller;
 using CodeBlogFitness.BL.Model;
+using CodeBlogFitness.CMD.Languages;
 
 namespace CodeBlogFitness.CMD
 {
     class Program
-    {       
-        /// <summary>
-        /// Объект, отвечающий за локализацию проекта.
-        /// </summary>
-        private static readonly CultureInfo culture 
-            = CultureInfo.CreateSpecificCulture("ru-RU");
-        
-        /// <summary>
-        /// Менеджер ресурсов.
-        /// </summary>
-        private static readonly ResourceManager resManager = new ResourceManager
-            ("CodeBlogFitness.CMD.Languages.Resources", typeof(Program).Assembly);
-
+    {
         /// <summary>
         /// Точка входа в программу.
         /// </summary>
         static void Main()
         {
-            Console.WriteLine(resManager.GetString("Greeting", culture));
+            Resources.Culture = CultureInfo.CreateSpecificCulture("ru-RU");
 
-            Console.Write(resManager.GetString("EnterName", culture));
+            Console.WriteLine(Resources.Greeting);
+            Console.Write(Resources.EnterName);
             var userName = Console.ReadLine();
 
             var userController = new UserController(userName);
@@ -37,18 +26,18 @@ namespace CodeBlogFitness.CMD
 
             if (userController.IsNewUser)
             {
-                Console.Write(resManager.GetString("EnterGender", culture));
+                Console.Write(Resources.EnterGender);
                 var gender = Console.ReadLine();                
-                var birthDate = ParseToDateTime(resManager.GetString("BirthDate", culture));
-                var weight = ParseToDouble(resManager.GetString("Weight", culture));
-                var height = ParseToDouble(resManager.GetString("Height", culture));
+                var birthDate = ParseToDateTime(Resources.BirthDate);
+                var weight = ParseToDouble(Resources.Weight);
+                var height = ParseToDouble(Resources.Height);
                 userController.SetNewUserData(gender, birthDate, weight, height);
             }
             Console.WriteLine();
 
             while (true)
             {
-                Console.WriteLine(resManager.GetString("Action", culture));
+                Console.WriteLine(Resources.Action);
 
                 Console.WriteLine("E - Ввести прием пищи.");
                 Console.WriteLine("A - Ввести упражнение.");
@@ -60,6 +49,7 @@ namespace CodeBlogFitness.CMD
                 switch (key.Key)
                 {
                     case ConsoleKey.E:
+                    {
                         var foods = EnterEating();
                         eatingController.Add(foods.Key, foods.Value);
 
@@ -68,21 +58,26 @@ namespace CodeBlogFitness.CMD
                             Console.WriteLine($"\t{food.Key} - {food.Value}");
                         }
                         break;
+                    }
 
                     case ConsoleKey.A:
+                    {
                         var exercise = EnterExercise();
                         exerciseController.Add(exercise.Activity, exercise.Begin, exercise.End);
 
                         foreach (var item in exerciseController.Exercises)
                         {
                             Console.WriteLine($"\t{item.Activity} " +
-                                $"с {item.Start.ToShortTimeString()} до {item.Finish.ToShortTimeString()}");
+                                $"с {item.Start.ToShortTimeString()} " +
+                                $"до {item.Finish.ToShortTimeString()}");
                         }
                         break;
+                    }
 
                     case ConsoleKey.Q:
-                        Environment.Exit(0);
-                        break;
+                    {
+                        Environment.Exit(0); break;
+                    }
                 }
 
                 Console.ReadLine();
@@ -134,20 +129,17 @@ namespace CodeBlogFitness.CMD
         /// <returns> Переменная типа Double. </returns>
         private static double ParseToDouble(string name)
         {
-            double value;
-            bool isParsed;           
+            double value; bool isParsed;
 
-            do
-            {
-                Console.Write(resManager.GetString("Enter", culture) + name + ": ");
+            do {
+                Console.Write(Resources.Enter + name + ": ");
                 isParsed = double.TryParse(Console.ReadLine(), out value);
 
                 if (!isParsed)
                 {
-                    Console.WriteLine(resManager.GetString("InvalidFormat", culture) + name + "!");
+                    Console.WriteLine(Resources.InvalidFormat + name + "!");
                 }
-            }
-            while (!isParsed);
+            } while (!isParsed);
 
             return value;
         }
@@ -159,20 +151,17 @@ namespace CodeBlogFitness.CMD
         /// <returns> Переменная типа DateTime. </returns>
         private static DateTime ParseToDateTime(string name)
         {
-            DateTime value;
-            bool isParsed;
+            DateTime value; bool isParsed;
 
-            do
-            {
-                Console.Write(resManager.GetString("EnterField", culture) + name + resManager.GetString("DateFormat", culture));
+            do { 
+                Console.Write(Resources.EnterField + name + Resources.DateFormat);
                 isParsed = DateTime.TryParse(Console.ReadLine(), out value);
 
                 if (!isParsed)
                 {
-                    Console.WriteLine(resManager.GetString("InvalidFormat", culture) + name + "!");
+                    Console.WriteLine(Resources.InvalidFormat + name + "!");
                 }
-            }
-            while (!isParsed);
+            } while (!isParsed);
 
             return value;
         }

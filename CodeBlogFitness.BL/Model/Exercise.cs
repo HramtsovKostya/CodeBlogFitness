@@ -57,7 +57,10 @@ namespace CodeBlogFitness.BL.Model
         /// <param name="finish"> Время конца упражнения. </param>
         /// <param name="activity"> Физическая активность. </param>
         /// <param name="user"> Пользователь. </param>
-        public Exercise(DateTime start, DateTime finish, Activity activity, User user)
+        public Exercise(DateTime start,
+                        DateTime finish,
+                        Activity activity,
+                        User user)
         {
             Start = start;
             Finish = finish;

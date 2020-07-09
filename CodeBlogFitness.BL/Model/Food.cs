@@ -66,10 +66,10 @@ namespace CodeBlogFitness.BL.Model
         /// <param name="fats"> Жиры на 100 г. продукта. </param>
         /// <param name="carbohydrates"> Углеводы на 100 г. продукта. </param>
         public Food(string name,
-                double calories,
-                double proteins,
-                double fats,
-                double carbohydrates)
+                    double calories,
+                    double proteins,
+                    double fats,
+                    double carbohydrates)
         {
             Name = name;
             Calories = calories / 100.0;

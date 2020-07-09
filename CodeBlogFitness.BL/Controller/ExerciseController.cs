@@ -47,9 +47,10 @@ namespace CodeBlogFitness.BL.Controller
         /// <param name="end"> Время конца активности. </param>
         public void Add(Activity activity, DateTime begin, DateTime end)
         {
-            var act = Activities.FirstOrDefault(a => a.Name == activity.Name);
+            var currentActivity = Activities
+                .FirstOrDefault(act => act.Name == activity.Name);
 
-            if (act == null)
+            if (currentActivity == null)
             {
                 Activities.Add(activity);
 
@@ -58,7 +59,7 @@ namespace CodeBlogFitness.BL.Controller
             }
             else
             {
-                var exercise = new Exercise(begin, end, act, user);
+                var exercise = new Exercise(begin, end, currentActivity, user);
                 Exercises.Add(exercise);
             }            
 

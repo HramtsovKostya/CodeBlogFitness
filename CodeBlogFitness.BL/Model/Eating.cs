@@ -50,6 +50,7 @@ namespace CodeBlogFitness.BL.Model
         {
             User = user ?? throw new ArgumentNullException
                 ("Пользователь не может быть равным null.", nameof(user));
+
             Moment = DateTime.UtcNow;
             Foods = new Dictionary<Food, double>();
         }
@@ -61,7 +62,8 @@ namespace CodeBlogFitness.BL.Model
         /// <param name="weight"> Вес продукта в гр. </param>
         public void Add(Food food, double weight)
         {
-            var product = Foods.Keys.FirstOrDefault(f => f.Name.Equals(food.Name));
+            var product = Foods.Keys
+                .FirstOrDefault(prod => prod.Name.Equals(food.Name));
 
             if (product == null)
             {

@@ -17,7 +17,7 @@ namespace CodeBlogFitness.BL.Controller
         {
             using (var context = new FitnessContext())
             {
-                var collection = context.Set<T>().Where(t => true).ToList();
+                var collection = context.Set<T>().Where(item => true).ToList();
                 return collection;
             }
         }

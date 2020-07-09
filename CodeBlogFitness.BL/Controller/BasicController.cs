@@ -17,13 +17,19 @@ namespace CodeBlogFitness.BL.Controller
         /// </summary>
         /// <typeparam name="T"> Тип элементов коллекции. </typeparam>
         /// <param name="collection"> Коллекция элементов. </param>
-        protected void Save<T>(List<T> collection) where T : class => manager.Save(collection);
+        protected void Save<T>(List<T> collection) where T : class
+        {
+            manager.Save(collection);
+        }
 
         /// <summary>
         /// Загрузка коллекции элементов.
         /// </summary>
         /// <typeparam name="T"> Тип элементов коллекции. </typeparam>
         /// <returns> Коллекция элементов. </returns>
-        protected List<T> Load<T>() where T : class => manager.Load<T>();
+        protected List<T> Load<T>() where T : class
+        {
+            return manager.Load<T>();
+        }
     }
 }
