@@ -15,7 +15,31 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_12AFDD2D10E14C05B1DB68867AFC2277"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_336BCC212E78407DA419522E5095D87C"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_499E96E1639340FF985E3A0A70BE9C88"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_5197804BD4A047B8827B7D73DB1424CA"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_64DC5C808F9743039E0AD257ED54886B"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -23,6 +47,12 @@
         {
         "MsmKey" = "8:_96E075EA19099BA88099A9B3C7105F86"
         "OwnerKey" = "8:_336BCC212E78407DA419522E5095D87C"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_9C5F657A371742FBBCCCED1E81224100"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -190,6 +220,86 @@
         }
         "File"
         {
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_12AFDD2D10E14C05B1DB68867AFC2277"
+            {
+            "SourcePath" = "8:C:\\Program Files\\CODE BLOG\\Fitness Code Blog\\Saves\\Eating.dat"
+            "TargetName" = "8:Eating.dat"
+            "Tag" = "8:"
+            "Folder" = "8:_0EBD9F89A7954A61828E8CAA21A8769A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_499E96E1639340FF985E3A0A70BE9C88"
+            {
+            "SourcePath" = "8:..\\..\\User.dat"
+            "TargetName" = "8:User.dat"
+            "Tag" = "8:"
+            "Folder" = "8:_0EBD9F89A7954A61828E8CAA21A8769A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_5197804BD4A047B8827B7D73DB1424CA"
+            {
+            "SourcePath" = "8:C:\\Program Files\\CODE BLOG\\Fitness Code Blog\\Saves\\Food.dat"
+            "TargetName" = "8:Food.dat"
+            "Tag" = "8:"
+            "Folder" = "8:_0EBD9F89A7954A61828E8CAA21A8769A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_64DC5C808F9743039E0AD257ED54886B"
+            {
+            "SourcePath" = "8:C:\\Program Files\\CODE BLOG\\Fitness Code Blog\\Saves\\Exercise.dat"
+            "TargetName" = "8:Exercise.dat"
+            "Tag" = "8:"
+            "Folder" = "8:_0EBD9F89A7954A61828E8CAA21A8769A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_96E075EA19099BA88099A9B3C7105F86"
             {
             "AssemblyRegister" = "3:1"
@@ -219,6 +329,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9C5F657A371742FBBCCCED1E81224100"
+            {
+            "SourcePath" = "8:C:\\Program Files\\CODE BLOG\\Fitness Code Blog\\Saves\\Activity.dat"
+            "TargetName" = "8:Activity.dat"
+            "Tag" = "8:"
+            "Folder" = "8:_0EBD9F89A7954A61828E8CAA21A8769A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_B1422F2563934D9AA518D3C0384F2104"
@@ -435,7 +565,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Fitness Code Blog"
         "ProductCode" = "8:{A5EFA035-4E16-4B29-81C5-7DB78C0CA401}"
-        "PackageCode" = "8:{8497A258-9ADF-4079-ACF3-AC78FCE57BF4}"
+        "PackageCode" = "8:{0FC850A5-095B-48A9-89A8-B64EAE9DD306}"
         "UpgradeCode" = "8:{72505A2F-7BD5-4422-8F99-D70F168BDED7}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
